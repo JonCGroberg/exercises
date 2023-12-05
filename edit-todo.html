@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand shadow-sm border">
+      <div class="container">
+        <div class="navbar-nav nav-underline">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="new-todo.html">New Todo</a>
+          <a class="nav-link active" href="#">Edit Todo</a>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navigation -->
+    <!-- Todos -->
+    <main>
+      <form action="" id="findForm" class="container-fluid pt-5 pb-3">
+        <div class="input-group shadow-sm rounded-2 w-75 mx-auto">
+          <input
+            class="form-control w-25"
+            type="text"
+            name=""
+            placeholder="Enter ID of the task "
+            id="id"
+          />
+          <input
+            class="btn btn-primary"
+            type="submit"
+            value="Find"
+            id="findBtn"
+          />
+        </div>
+      </form>
+      <form action="" id="editForm" class="container-fluid">
+        <div class="input-group shadow-sm rounded-2 w-75 mx-auto">
+          <input
+            class="form-control w-25"
+            type="text"
+            name=""
+            placeholder="Title"
+            id="title"
+            required
+          />
+          <input
+            class="form-control"
+            type="text"
+            name=""
+            placeholder="User ID"
+            id="userId"
+            required
+          />
+          <input
+            class="form-control"
+            type="text"
+            name=""
+            placeholder="Status"
+            id="status"
+            required
+          />
+          <input
+            class="btn btn-primary"
+            type="submit"
+            value="Update"
+            id="todoAddBtn"
+          />
+        </div>
+      </form>
+    </main>
+    <script>
+      const link = "https://jsonplaceholder.typicode.com/todos";
+      const findForm = document.querySelector("#findForm");
+      const editForm = document.querySelector("#editForm");
+      const title = document.querySelector("#title");
+      const userId = document.querySelector("#userId");
+      const status = document.querySelector("#status");
+      const id = document.querySelector("#id");
+
+      findForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(link + "/" + id.value)
+          .then((response) => response.json())
+          .then((json) => {
+            title.value = json.title;
+            userId.value = json.userId;
+            status.value = json.completed;
+            console.log(json);
+          });
+      });
+
+      editForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const newTodo = JSON.stringify({
+          id: id.value,
+          userId: userId.value,
+          title: title.value,
+          completed: status.value,
+        });
+
+        fetch(link+"/"+id.value, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          body: newTodo,
+        })
+          .then((response) => response.json())
+          .then((json) => console.log(json));
+      });
+    </script>
+  </body>
+</html>
