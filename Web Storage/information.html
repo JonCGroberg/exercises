@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container" id="content-holder"></div>
+  </body>
+  <script defer>
+    const contentHolder = document.getElementById("content-holder");
+    const name = sessionStorage.name;
+    const type = sessionStorage.type;
+
+    const msg = type == "student" ? "Student" : "Instructor"
+    const textColor = type == "student" ? "text-primary" : "text-danger"
+
+    contentHolder.innerHTML = `<div class = "mt-4"><h1">Welcome ${msg} ${name}</h1></div>`;
+    contentHolder.innerHTML += `<button class="btn btn-primary me-1 my-1">Button 1</button>`;
+    contentHolder.innerHTML += `<button class="btn btn-primary my-1">Button 2</button>`;
+    contentHolder.innerHTML += `<p class="${textColor}">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum possimus, tempore aliquam blanditiis, error sunt cum dignissimos explicabo esse tempora nesciunt dolore, minima voluptate corrupti modi fugiat architecto quas excepturi!</p>`;
+
+  </script>
+</html>
